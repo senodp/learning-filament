@@ -21,6 +21,8 @@ use Filament\Forms\Set;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Card;
 
+use Filament\Tables\Contracts\HasTable;
+
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
@@ -48,7 +50,16 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id'),
+                TextColumn::make('No.')->state(
+                static function (HasTable $livewire, $rowLoop): string {
+                    return (string) (
+                        $rowLoop->iteration +
+                        ($livewire->getTableRecordsPerPage() * (
+                            $livewire->getTablePage() - 1
+                        ))
+                    );
+                }
+            ),
                 TextColumn::make('name')->limit('50')->sortable(),
                 TextColumn::make('slug')->limit('50')
             ])

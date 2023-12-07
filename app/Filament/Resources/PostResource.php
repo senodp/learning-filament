@@ -13,6 +13,22 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\RichEditor;
+
+use Filament\Forms\Components\TextInput;
+use Illuminate\Support\Str;
+use Filament\Forms\Set;
+
+use Filament\Forms\Components\Toggle;
+
+use Filament\Tables\Columns\ToggleColumn;
+
+use Filament\Forms\Components\Card;
+use Filament\Tables\Columns\TextColumn;
+
+use Filament\Tables\Contracts\HasTable;
+
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
@@ -23,7 +39,20 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Card::make()->schema([
+                Select::make('category_id')
+                    ->relationship(name: 'category', titleAttribute: 'name'),
+                TextInput::make('title')
+                    ->required()
+                    ->maxLength(255)
+                    ->live()
+                    ->afterStateUpdated(function (Set $set, $state) {
+                    $set('slug', Str::slug($state));
+                }),  
+                TextInput::make('slug')->required(),
+                RichEditor::make('content'),
+                Toggle::make('status')
+                ])
             ]);
     }
 
@@ -31,7 +60,19 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('No.')->state(
+                static function (HasTable $livewire, $rowLoop): string {
+                    return (string) (
+                        $rowLoop->iteration +
+                        ($livewire->getTableRecordsPerPage() * (
+                            $livewire->getTablePage() - 1
+                        ))
+                    );
+                }
+            ),
+                TextColumn::make('title')->limit('50')->sortable(),
+                TextColumn::make('category.name'),
+                ToggleColumn::make('status')
             ])
             ->filters([
                 //
