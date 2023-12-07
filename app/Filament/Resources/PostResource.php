@@ -29,6 +29,12 @@ use Filament\Tables\Columns\TextColumn;
 
 use Filament\Tables\Contracts\HasTable;
 
+use Filament\Forms\Components\FileUpload; //untuk upload
+use Filament\Tables\Columns\ImageColumn; //untuk tampilkan file
+
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload; //library upload
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+
 class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
@@ -50,6 +56,8 @@ class PostResource extends Resource
                     $set('slug', Str::slug($state));
                 }),  
                 TextInput::make('slug')->required(),
+                // FileUpload::make('cover'),
+                SpatieMediaLibraryFileUpload::make('cover'),
                 RichEditor::make('content'),
                 Toggle::make('status')
                 ])
@@ -72,6 +80,8 @@ class PostResource extends Resource
             ),
                 TextColumn::make('title')->limit('50')->sortable(),
                 TextColumn::make('category.name'),
+                //ImageColumn::make('cover'),
+                SpatieMediaLibraryImageColumn::make('cover'),
                 ToggleColumn::make('status')
             ])
             ->filters([
