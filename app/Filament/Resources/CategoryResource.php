@@ -21,7 +21,7 @@ use Filament\Forms\Set;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Card;
 
-use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Contracts\HasTable; //untuk number sort
 
 class CategoryResource extends Resource
 {
