@@ -34,6 +34,10 @@ use Filament\Tables\Columns\ImageColumn; //untuk tampilkan file
 
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload; //library upload
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+//untuk filter
+use Filament\Tables\Filters\Filter;
+//untuk filter select
+use Filament\Tables\Filters\SelectFilter;
 
 class PostResource extends Resource
 {
@@ -78,14 +82,19 @@ class PostResource extends Resource
                     );
                 }
             ),
-                TextColumn::make('title')->limit('50')->sortable(),
+                TextColumn::make('title')->limit('50')->sortable()->searchable(),
                 TextColumn::make('category.name'),
                 //ImageColumn::make('cover'),
                 SpatieMediaLibraryImageColumn::make('cover'),
                 ToggleColumn::make('status')
             ])
             ->filters([
-                //
+                Filter::make('publish')
+                ->query(fn (Builder $query): Builder => $query->where('status', true)),
+                Filter::make('hidden')
+                ->query(fn (Builder $query): Builder => $query->where('status', false)),
+                SelectFilter::make('Category')
+                ->relationship('category', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
