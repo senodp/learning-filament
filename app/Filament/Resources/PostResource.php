@@ -41,6 +41,9 @@ use Filament\Tables\Filters\SelectFilter;
 
 class PostResource extends Resource
 {
+    //untuk global search
+    protected static ?string $recordTitleAttribute = 'title';
+
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -119,6 +122,14 @@ class PostResource extends Resource
             'index' => Pages\ListPosts::route('/'),
             'create' => Pages\CreatePost::route('/create'),
             'edit' => Pages\EditPost::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            PostResource\Widgets\StatsOverview::class,
+            //StatsOverview::class,
         ];
     }
 }

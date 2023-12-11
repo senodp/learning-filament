@@ -25,6 +25,9 @@ use Filament\Tables\Contracts\HasTable; //untuk number sort
 
 class CategoryResource extends Resource
 {
+    //untuk global search
+    protected static ?string $recordTitleAttribute = 'name';
+
     protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

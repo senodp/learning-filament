@@ -24,6 +24,10 @@ use Filament\Tables\Contracts\HasTable; //untuk number sort
 
 class TagResource extends Resource
 {
+
+    //untuk global search
+    protected static ?string $recordTitleAttribute = 'name';
+    
     protected static ?string $model = Tag::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
