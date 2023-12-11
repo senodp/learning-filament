@@ -19,7 +19,6 @@ use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 
-
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;

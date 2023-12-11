@@ -62,7 +62,7 @@ class AdminPanelProvider extends PanelProvider
             ->userMenuItems([
                 MenuItem::make()
                     ->label('Settings')
-                    ->url('/learning-filament/public/admin')
+                    ->url('/learning-filament/public/admin/users')
                     ->icon('heroicon-o-cog-6-tooth'),
             ]);
     }
