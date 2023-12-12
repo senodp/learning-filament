@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 //untuk form
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\TextInput;
+
+use Filament\Forms\Components\Select;
 //untuk table
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
@@ -34,7 +36,13 @@ class UserResource extends Resource
                 Card::make()->schema([
                     TextInput::make('name')->required(),
                     TextInput::make('email')->email(),
-                    TextInput::make('password')->password(),
+                    TextInput::make('password')->password()->visibleOn('create'),
+                    Select::make('roles')
+                        ->multiple()
+                        ->relationship('roles', 'name')->preload(),
+                    // Select::make('permissions')
+                    //     ->multiple()
+                    //     ->relationship('permissions', 'name')->preload(),
                 ])
             ]);
     }
@@ -54,7 +62,8 @@ class UserResource extends Resource
                 }
             ),
                 TextColumn::make('name')->limit('50')->sortable()->searchable(),
-                TextColumn::make('email')->limit('50')->searchable()
+                TextColumn::make('email')->limit('50')->searchable(),
+                TextColumn::make('roles.name')
             ])
             ->filters([
                 //
