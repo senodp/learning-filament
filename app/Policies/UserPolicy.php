@@ -39,7 +39,7 @@ class UserPolicy
         if($user->id == $model->id && $user->hasRole('editor')){
             return true;
         }else{
-            return false;
+            return $user->hasRole('admin');
         }
     }
 
