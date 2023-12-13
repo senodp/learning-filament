@@ -47,6 +47,8 @@ class PostResource extends Resource
     protected static ?string $model = Post::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    
+    protected static ?string $navigationGroup = 'Management';
 
     public static function form(Form $form): Form
     {
@@ -76,15 +78,15 @@ class PostResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('No.')->state(
-                static function (HasTable $livewire, $rowLoop): string {
-                    return (string) (
-                        $rowLoop->iteration +
-                        ($livewire->getTableRecordsPerPage() * (
-                            $livewire->getTablePage() - 1
-                        ))
-                    );
-                }
-            ),
+                    static function (HasTable $livewire, $rowLoop): string {
+                        return (string) (
+                            $rowLoop->iteration +
+                            ($livewire->getTableRecordsPerPage() * (
+                                $livewire->getTablePage() - 1
+                            ))
+                        );
+                    }
+                ),
                 TextColumn::make('title')->limit('50')->sortable()->searchable(),
                 TextColumn::make('category.name'),
                 //ImageColumn::make('cover'),

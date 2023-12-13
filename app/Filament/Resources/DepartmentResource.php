@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryNilaiResource\Pages;
-use App\Filament\Resources\CategoryNilaiResource\RelationManagers;
-use App\Models\CategoryNilai;
+use App\Filament\Resources\DepartmentResource\Pages;
+use App\Filament\Resources\DepartmentResource\RelationManagers;
+use App\Models\Department;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 // komponen untuk form
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\TextArea;
 use Illuminate\Support\Str;
 use Filament\Forms\Set;
 // komponen untuk tabel
@@ -22,28 +23,30 @@ use Filament\Forms\Components\Card;
 
 use Filament\Tables\Contracts\HasTable; //untuk number sort
 
-class CategoryNilaiResource extends Resource
+class DepartmentResource extends Resource
 {
-    protected static ?string $model = CategoryNilai::class;
+    protected static ?string $model = Department::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationLabel = 'Category Nilai';
+    protected static ?string $navigationLabel = 'Department';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Card::make()->schema([
-                    TextInput::make('name')
+                    TextInput::make('name_department')
+                        ->label('Name Department')
                         ->required()
                         ->maxLength(255)
                         ->live()
                         ->afterStateUpdated(function (Set $set, ?string $state) {
                         $set('slug', \Str::slug($state));
                     }),  
-                TextInput::make('slug')->required()
-                ])
+                TextInput::make('slug')->required(),
+                Textarea::make('description'),
+                ])->columns(2) //menjadikan 2 kolom
             ]);
     }
 
@@ -61,8 +64,9 @@ class CategoryNilaiResource extends Resource
                     );
                 }
             ),
-                TextColumn::make('name')->limit('50')->sortable(),
-                TextColumn::make('slug')->limit('50')
+                TextColumn::make('name_department')->label('Name Department')->sortable(),
+                TextColumn::make('slug')->limit('50'),
+                TextColumn::make('description')->toggleable(true),
             ])
             ->filters([
                 //
@@ -81,7 +85,7 @@ class CategoryNilaiResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageCategoryNilais::route('/'),
+            'index' => Pages\ManageDepartments::route('/'),
         ];
     }
 }

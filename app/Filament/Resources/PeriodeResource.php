@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CategoryNilaiResource\Pages;
-use App\Filament\Resources\CategoryNilaiResource\RelationManagers;
-use App\Models\CategoryNilai;
+use App\Filament\Resources\PeriodeResource\Pages;
+use App\Filament\Resources\PeriodeResource\RelationManagers;
+use App\Models\Periode;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,37 +12,30 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 // komponen untuk form
 use Filament\Forms\Components\TextInput;
-use Illuminate\Support\Str;
-use Filament\Forms\Set;
 // komponen untuk tabel
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\Card;
 
 use Filament\Tables\Contracts\HasTable; //untuk number sort
 
-class CategoryNilaiResource extends Resource
+class PeriodeResource extends Resource
 {
-    protected static ?string $model = CategoryNilai::class;
+    protected static ?string $model = Periode::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationLabel = 'Category Nilai';
+    protected static ?string $navigationLabel = "Periode";
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Card::make()->schema([
-                    TextInput::make('name')
-                        ->required()
-                        ->maxLength(255)
-                        ->live()
-                        ->afterStateUpdated(function (Set $set, ?string $state) {
-                        $set('slug', \Str::slug($state));
-                    }),  
-                TextInput::make('slug')->required()
+                TextInput::make('name')
+                    ->required(),
                 ])
             ]);
     }
@@ -61,8 +54,7 @@ class CategoryNilaiResource extends Resource
                     );
                 }
             ),
-                TextColumn::make('name')->limit('50')->sortable(),
-                TextColumn::make('slug')->limit('50')
+                TextColumn::make('name')->label('Name Periode')->limit('50')->sortable(),
             ])
             ->filters([
                 //
@@ -81,7 +73,7 @@ class CategoryNilaiResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageCategoryNilais::route('/'),
+            'index' => Pages\ManagePeriodes::route('/'),
         ];
     }
 }
