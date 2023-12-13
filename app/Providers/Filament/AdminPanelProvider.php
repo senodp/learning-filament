@@ -21,6 +21,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Filament\Resources\PostResource\Widgets\StatsOverview;
 use Filament\Navigation\MenuItem;
 use App\Filament\Pages\Settings;
+use Filament\Facades\Filament;
 
 class AdminPanelProvider extends PanelProvider
 {
