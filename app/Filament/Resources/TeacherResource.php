@@ -25,6 +25,8 @@ use Filament\Tables\Contracts\HasTable; //untuk number sort
 use Filament\Forms\Components\FileUpload; //untuk upload
 use Filament\Tables\Columns\ImageColumn; //untuk tampilkan file
 
+//use App\Filament\Resources\TeacherResource\RelationManagers\ClassroomResource;
+
 class TeacherResource extends Resource
 {
     protected static ?string $model = Teacher::class;
@@ -81,7 +83,7 @@ class TeacherResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\ClassroomRelationManager::class,
         ];
     }
 
