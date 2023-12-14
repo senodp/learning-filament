@@ -60,9 +60,9 @@ class PostResource extends Resource
                 TextInput::make('title')
                     ->required()
                     ->maxLength(255)
-                    ->live()
-                    ->afterStateUpdated(function (Set $set, $state) {
-                    $set('slug', Str::slug($state));
+                    ->reactive()
+                    ->afterStateUpdated(function (Set $set, ?string $state) {
+                    $set('slug', \Str::slug($state));
                 }),  
                 TextInput::make('slug')->required(),
                 // FileUpload::make('cover'),

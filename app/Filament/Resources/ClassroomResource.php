@@ -38,7 +38,7 @@ class ClassroomResource extends Resource
                     TextInput::make('name')
                         ->required()
                         ->maxLength(255)
-                        ->live()
+                        ->reactive()
                         ->afterStateUpdated(function (Set $set, ?string $state) {
                         $set('slug', \Str::slug($state));
                     }),  
