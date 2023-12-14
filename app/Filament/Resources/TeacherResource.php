@@ -31,7 +31,7 @@ class TeacherResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationLabel = "Teacher";
+    //protected static ?string $navigationLabel = "Teacher";
 
     public static function form(Form $form): Form
     {
@@ -92,5 +92,15 @@ class TeacherResource extends Resource
             'create' => Pages\CreateTeacher::route('/create'),
             'edit' => Pages\EditTeacher::route('/{record}/edit'),
         ];
+    }
+
+    public static function getLabel(): ?string{
+        $locale = app()->getLocale();
+
+        if($locale == 'id'){
+            return "Guru";
+        }else{
+            return "Teacher";
+        }
     }
 }
