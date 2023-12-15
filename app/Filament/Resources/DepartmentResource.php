@@ -40,7 +40,7 @@ class DepartmentResource extends Resource
                         ->label('Name Department')
                         ->required()
                         ->maxLength(255)
-                        ->live()
+                        ->reactive()
                         ->afterStateUpdated(function (Set $set, ?string $state) {
                         $set('slug', \Str::slug($state));
                     }),  

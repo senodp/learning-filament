@@ -38,17 +38,17 @@ class TagResource extends Resource
     {
         return $form
             ->schema([
-            Card::make()->schema([
-            TextInput::make('name')
-                ->required()
-                ->maxLength(255)
-                ->live()
-                ->afterStateUpdated(function (Set $set, $state) {
-                $set('slug', Str::slug($state));
-            }),  
-            TextInput::make('slug')->required()
-            ])
-        ]);
+                Card::make()->schema([
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255)
+                    ->reactive()
+                    ->afterStateUpdated(function (Set $set, $state) {
+                    $set('slug', Str::slug($state));
+                }),  
+                TextInput::make('slug')->required()
+                ])
+            ]);
     }
 
     public static function table(Table $table): Table
