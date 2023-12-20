@@ -20,8 +20,12 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 use App\Filament\Resources\PostResource\Widgets\StatsOverview;
 use Filament\Navigation\MenuItem;
-use App\Filament\Pages\Settings;
+// use App\Filament\Pages\Settings;
 use Filament\Facades\Filament;
+
+use App\Filament\Resources\PeriodeResource;
+use Illuminate\Support\Facades\View;
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -65,12 +69,23 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->userMenuItems([
+            // ->userMenuItems([
+            //     MenuItem::make()
+            //         ->label('Settings')
+            //         ->url('/learning-filament/public/admin/users')
+            //         ->icon('heroicon-o-cog-6-tooth'),
+            // ])
+            ->viteTheme('resources/css/filament/admin/theme.css');
+    }
+
+    public function boot(): void{
+        Filament::serving(function (){
+            Filament::registerUserMenuItems([
                 MenuItem::make()
                     ->label('Settings')
-                    ->url('/learning-filament/public/admin/users')
-                    ->icon('heroicon-o-cog-6-tooth'),
-            ])
-            ->viteTheme('resources/css/filament/admin/theme.css');
+                    ->url(PeriodeResource::getUrl())
+                    ->icon('heroicon-s-cog')
+            ]);
+        });
     }
 }
