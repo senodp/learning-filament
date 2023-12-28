@@ -18,6 +18,9 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
+// untuk role and permission
+use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
+
 use App\Filament\Resources\PostResource\Widgets\StatsOverview;
 use Filament\Navigation\MenuItem;
 // use App\Filament\Pages\Settings;
@@ -75,7 +78,8 @@ class AdminPanelProvider extends PanelProvider
             //         ->url('/learning-filament/public/admin/users')
             //         ->icon('heroicon-o-cog-6-tooth'),
             // ])
-            ->viteTheme('resources/css/filament/admin/theme.css');
+            ->viteTheme('resources/css/filament/admin/theme.css')
+            ->plugin(FilamentSpatieRolesPermissionsPlugin::make());
     }
 
     public function boot(): void{

@@ -12,7 +12,7 @@
         <div class='md:flex md:justify-between py-4 px-10'>
             <div class="md:ml-8 ml-0 flex justify-between items-center">
               <div class='text-2xl font-bold text-white py-2'>
-                  School
+                  School Learning Filament
               </div>
               <span class="text-3xl cursor-pointer mx-2 md:hidden block">
                 <ion-icon name="menu" onclick="Menu(this)"></ion-icon>
@@ -27,7 +27,7 @@
        </div>
 
             <div class="flex flex-col absolute top-20 left-[50%] translate-x-[-50%] text-center">
-              <h1 class="text-[40px] m-auto font-bold">SCHOOL CODING
+              <h1 class="text-[40px] m-auto font-bold">Filament 3
               </h1>
               <p class="whitespace-nowrap pt-1 text-[16px] text-[#5c5d61]">
                   Upgrade Skill
@@ -50,6 +50,16 @@
               </svg>
           </div>
   </div>
+
+  <div class="flex items-center justify-center h-screen bg-gray-300" id="register">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-1/2 mt-20">
+      <h1 class="text-2xl font-semibold mb-4">
+        Registration
+        @livewire('home')
+      </h1>
+    </div>    
+  </div>
+
   <script>
      function Menu(e) {
             let list = document.querySelector('ul');
