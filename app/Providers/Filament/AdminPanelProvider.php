@@ -79,7 +79,8 @@ class AdminPanelProvider extends PanelProvider
             //         ->icon('heroicon-o-cog-6-tooth'),
             // ])
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->plugin(FilamentSpatieRolesPermissionsPlugin::make());
+            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
+            ->databaseNotifications();
     }
 
     public function boot(): void{

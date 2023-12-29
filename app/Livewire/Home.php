@@ -13,6 +13,10 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Livewire\Component;
 
+use App\Models\Student;
+use App\Models\User;
+use Filament\Notifications\Notification;
+
 class Home extends Component implements HasForms
 {
 
@@ -72,6 +76,13 @@ class Home extends Component implements HasForms
         }
 
         Student::insert($data);
+
+        Notification::make()
+            ->success()
+            ->title('Murid '.$this->name. ' Telah Mendaftar')
+            ->sendToDatabase(User::whereHas('roles', function ($query){
+                $query->where('name', 'admin');
+            })->get());
 
         session()->flash('message', 'Save Successfully');
     }
